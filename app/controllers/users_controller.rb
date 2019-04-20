@@ -25,19 +25,34 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
+    @user = User.new(user_params)
+    if @user.save
+      flash[:notice] = 'User was successfully created.'
+      redirect_to users_path
+    else
+      flash[:notice] = "Error: "+@user.errors.messages.to_s
+      redirect_to new_user_path
+    end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #complete this method
+    if @user.update(user_params)
+      flash[:notice] = 'User was successfully updated.'
+      redirect_to users_path
+    else
+      flash[:notice] = "Error: "+@user.errors.messages.to_s
+      redirect_to edit_user_path(@user.id)
+    end
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #complete this method
+    @user.destroy
+    flash[:notice] = 'User was successfully destroyed.'
+    redirect_to users_path
   end
 
   private

@@ -9,7 +9,7 @@ class RegistrationsController < ApplicationController
 			flash[:notice] = 'User was successfully registered.'
 			redirect_to root_url
     else
-			flash[:notice] = @user.errors.messages
+			flash[:notice] = "Error: "+@user.errors.messages.to_s
 			redirect_to :registrations
     end
 	end
